@@ -1,0 +1,63 @@
+{
+  "name": "ecoleta-api",
+  "description": "Ecoleta RestAPI project made for Next Level Week training from Rocketseat",
+  "author": {
+    "name": "Christiano Marques",
+    "url": "https://github.com/christianodejesus"
+  },
+  "keywords": [
+    "NodeJS",
+    "typescript",
+    "rest",
+    "api",
+    "NLW",
+    "rocketseat"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/christianodejesus/ecoleta.git",
+    "directory": "api"
+  },
+  "version": "1.0.0",
+  "main": "src/server.js",
+  "scripts": {
+    "dev": "npx ts-node-dev --respawn --clear --transpileOnly ./src/server.ts",
+    "lint": "./node_modules/.bin/eslint ./src",
+    "prebuild": "rm -Rf build/**",
+    "build": "./node_modules/.bin/tsc --outDir ./build",
+    "build:dev": "npm run build -- --sourceMap"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "@koa/cors": "^3.1.0",
+    "@koa/router": "^9.0.1",
+    "dotenv": "^8.2.0",
+    "koa": "^2.12.0",
+    "koa-bodyparser": "^4.3.0",
+    "mongoose": "^5.9.16"
+  },
+  "devDependencies": {
+    "@types/koa": "^2.11.3",
+    "@types/koa-bodyparser": "^4.3.0",
+    "@types/koa-logger": "^3.1.1",
+    "@types/koa__cors": "^3.0.1",
+    "@types/koa__router": "^8.0.2",
+    "@types/mongoose": "^5.7.21",
+    "@types/node": "^14.0.9",
+    "@typescript-eslint/eslint-plugin": "^3.1.0",
+    "@typescript-eslint/parser": "^3.1.0",
+    "eslint": "^6.8.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-config-standard": "^14.1.1",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-prettier": "^3.1.3",
+    "eslint-plugin-promise": "^4.2.1",
+    "eslint-plugin-standard": "^4.0.1",
+    "koa-logger": "^3.2.1",
+    "prettier": "^2.0.5",
+    "ts-node": "^8.10.2",
+    "ts-node-dev": "^1.0.0-pre.44",
+    "typescript": "^3.9.3"
+  }
+}
