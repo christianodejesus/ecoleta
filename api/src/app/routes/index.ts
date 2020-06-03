@@ -15,13 +15,13 @@ mainRouter.get('/', ctx => {
 
 const ext = path.extname(__filename)
 
-// import all *Route files in the directory
+// import all *Routes files in the directory
 fs.readdirSync(__dirname)
   .filter(
     file =>
       file.indexOf('.') !== 0 &&
       file !== path.basename(__filename) &&
-      file.slice(-8) === `Route${ext}`
+      file.slice(-9) === `Routes${ext}`
   )
   .forEach(async file => {
     const childRouter = await import(path.join(__dirname, file)).then(module => module.default)
