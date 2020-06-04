@@ -3,7 +3,6 @@ import { config } from 'dotenv'
 import Koa, { Next, ParameterizedContext } from 'koa'
 import bodyparser from 'koa-bodyparser'
 import KoaLogger from 'koa-logger'
-import mongoose from 'mongoose'
 import router from './routes'
 
 config({ path: process.env.NODE_ENV === 'test' ? '.env.test' : '.env' })
@@ -15,7 +14,6 @@ class App {
     this.app = new Koa()
 
     this.middlewares()
-    this.database()
     this.routes()
   }
 
@@ -37,7 +35,7 @@ class App {
         await next()
       } catch (err) {
         ctx.status = 500
-        ctx.body = { message: 'An unexpected error are occurred' }
+        ctx.body = { message: 'Unexpected error are occurred' }
 
         if (process.env.NODE_ENV === 'development') {
           const { message, name } = Error(err)
@@ -60,22 +58,6 @@ class App {
     // use the app routes
     this.app.use(router.routes())
     this.app.use(router.allowedMethods())
-  }
-
-  private database () {
-    const userStr = process.env.DB_USER !== undefined && process.env.DB_USER !== ''
-      ? `${process.env.DB_USER}:${process.env.DB_PASS}@`
-      : ''
-    const portStr = process.env.DB_PORT !== undefined && Number(process.env.DB_PORT) > 0
-      ? `:${process.env.DB_PORT}`
-      : ''
-
-    const connectionStr = `${process.env.DB_PROTOCOL}://${userStr}${process.env.DB_HOST}${portStr}/${process.env.DB_NAME}`
-
-    mongoose.connect(connectionStr, {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    })
   }
 }
 
