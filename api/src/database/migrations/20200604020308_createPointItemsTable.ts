@@ -2,9 +2,10 @@ import Knex from 'knex'
 
 export async function up (knex: Knex): Promise<unknown> {
   return knex.schema.createTable('point_items', table => {
-    table.integer('point_id').primary()
+    table.increments('id').primary()
+    table.integer('point_id').notNullable()
       .references('id').inTable('points')
-    table.integer('item_id').primary()
+    table.integer('item_id').notNullable()
       .references('id').inTable('items')
   })
 }

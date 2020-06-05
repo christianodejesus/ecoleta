@@ -21,20 +21,25 @@
   "version": "1.0.0",
   "main": "src/server.js",
   "scripts": {
-    "dev": "npx ts-node-dev --respawn --clear --transpileOnly --no-notify ./src/server.ts",
+    "dev": "npx ts-node-dev --ignore-watch node_modules --respawn --clear --transpileOnly --no-notify ./src/server.ts",
     "lint": "./node_modules/.bin/eslint ./src",
     "prebuild": "rm -Rf build/**",
     "build": "./node_modules/.bin/tsc --outDir ./build",
+    "postbuild": "cp -Rf static build/static && cp ./src/database/database.sqlite build/src/database/",
     "build:dev": "npm run build -- --sourceMap",
     "migration": "knex migrate:make -x ts",
     "migrate:all": "npx knex migrate:latest",
     "migrate:undo": "npx knex migrate:rollback",
-    "migrate:undo:all": "npx knex migrate:rollback --all"
+    "migrate:undo:all": "npx knex migrate:rollback --all",
+    "seeder": "knex seed:make -x ts ",
+    "seed": "npx knex seed:run --specific=",
+    "seed:all": "npx knex seed:run"
   },
   "license": "MIT",
   "dependencies": {
     "@koa/cors": "^3.1.0",
     "@koa/router": "^9.0.1",
+    "@types/koa-send": "^4.1.2",
     "bcrypt": "^4.0.1",
     "dotenv": "^8.2.0",
     "http-status": "^1.4.2",
@@ -42,6 +47,7 @@
     "knex": "^0.21.1",
     "koa": "^2.12.0",
     "koa-bodyparser": "^4.3.0",
+    "koa-send": "^5.0.0",
     "sqlite3": "^4.2.0"
   },
   "devDependencies": {

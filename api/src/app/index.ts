@@ -38,8 +38,8 @@ class App {
         ctx.body = { message: 'Unexpected error are occurred' }
 
         if (process.env.NODE_ENV === 'development') {
-          const { message, name } = Error(err)
-          ctx.body.error = { message, name }
+          const { message, name, stack } = Error(err)
+          ctx.body.error = { message, name, stack }
         }
       }
     })
