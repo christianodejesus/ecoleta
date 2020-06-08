@@ -68,3 +68,7 @@ package-lock.json
 # .env files
 .env**
 !.env.example
+
+# sqlite database files
+**/*.sqlite
+**/*.sqlite3
