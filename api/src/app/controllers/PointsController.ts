@@ -10,15 +10,15 @@ interface IPoint {
   image: string
   whatsapp: string
   lat: string
-  long: string
+  lng: string
   city: string
-  state: string
+  uf: string
 }
 
 class PointsController {
   public async index (ctx: ParameterizedContext): Promise<void> {
     const {
-      name, city, state, items, order
+      name, city, uf, items, order
     } = ctx.query
 
     const parsedItems = String(items).split(',')
@@ -51,8 +51,8 @@ class PointsController {
       pointsQuery.where('points.city', city)
     }
 
-    if (state) {
-      pointsQuery.where('points.state', state)
+    if (uf) {
+      pointsQuery.where('points.uf', uf)
     }
 
     const points = await pointsQuery.distinct()
@@ -63,9 +63,9 @@ class PointsController {
         knex.raw(`'${StringUtils.baseStaticImgUrl(ctx)}' || points.image AS image`),
         'points.whatsapp',
         'points.lat',
-        'points.long',
+        'points.lng',
         'points.city',
-        'points.state'
+        'points.uf'
       ])
 
     ctx.body = points
@@ -99,7 +99,7 @@ class PointsController {
   public async create (ctx: ParameterizedContext): Promise<void> {
     const {
       name, email, whatsapp, lat,
-      long, city, state, items
+      lng, city, uf, items
     } = ctx.request.body
 
     const newPoint: IPoint = await knex.transaction(async trx => {
@@ -109,9 +109,9 @@ class PointsController {
         image: 'undefined-collection-point.jpg',
         whatsapp,
         lat,
-        long,
+        lng,
         city,
-        state
+        uf
       }
 
       const insertedPoint = await trx('points')
@@ -159,7 +159,7 @@ class PointsController {
     const updatedPoint: IPoint = await knex.transaction(async trx => {
       const {
         name, email, whatsapp, lat,
-        long, city, state, items
+        lng, city, uf, items
       } = ctx.request.body
 
       const pointToSave = {
@@ -168,9 +168,9 @@ class PointsController {
         image: 'undefined-collection-point.jpg',
         whatsapp,
         lat,
-        long,
+        lng,
         city,
-        state
+        uf
       }
 
       const pointItems = items.map((itemId: number) => ({

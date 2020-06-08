@@ -8,9 +8,9 @@ export async function up (knex: Knex): Promise<unknown> {
     table.string('email').notNullable().unique()
     table.string('whatsapp').notNullable()
     table.decimal('lat').notNullable()
-    table.decimal('long').notNullable()
+    table.decimal('lng').notNullable()
     table.string('city').notNullable()
-    table.string('state').notNullable()
+    table.string('uf').notNullable()
   })
 }
 
